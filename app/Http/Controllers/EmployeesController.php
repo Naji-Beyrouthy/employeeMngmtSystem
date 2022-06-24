@@ -15,7 +15,7 @@ class EmployeesController extends Controller
     {
         try
         {
-            $employees = Employee::orderBy('id')-> get();
+            $employees = Employee::orderBy('id','DESC')-> get();
             return response()->json($employees);
         }
         catch(Exception $e)
@@ -30,6 +30,65 @@ class EmployeesController extends Controller
         {
             $employeeData = Employee::findOrFail($request->get('employeeId'));
             return response()->json($employeeData);
+        }
+        catch(Exception $e)
+        {
+            Log::error($e);
+        }
+    }
+//Updating Employee Data
+    public function updateEmployeeData(Request $request){
+         try
+        {
+            $employeeId  = $request->get('employeeId');
+            $employeeName  = $request->get('employeeName');
+            $employeeSalary  = $request->get('employeeSalary');
+
+            Employee::where('id', $employeeId)->update([
+                'employee_name'  => $employeeName,
+                'salary'  => $employeeSalary,
+            ]);
+
+            return response()->json([
+                'employee_name'  => $employeeName,
+                'salary'  => $employeeSalary,
+            ]);
+        }
+        catch(Exception $e)
+        {
+            Log::error($e);
+        }
+    }
+
+    //Deleting employee
+
+    public function destroy(Employee $employee){
+        try
+        {
+            $employee->delete();
+        }
+        catch(Exception $e)
+        {
+            Log::error($e);
+        }
+    }
+
+    //Storing new employee
+
+    public function store(Request $request){
+         try
+        {
+            $employeeName= $request->get('employeeName');
+            $employeeSalary= $request->get('employeeSalary');
+
+            Employee::create([
+                'employee_name'  => $employeeName,
+                'salary'  => $employeeSalary
+            ]);
+             return response()->json([
+                'employee_name'  => $employeeName,
+                'salary'  => $employeeSalary
+            ]);
         }
         catch(Exception $e)
         {

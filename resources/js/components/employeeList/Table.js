@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import TableRow from './TableRow';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import CreateModal from "./Modals/CreateModal";
 
 //Create the Table class.
 class Table extends Component {
@@ -31,6 +33,8 @@ class Table extends Component {
     render() {
         return (
             <div className="container">
+                <ToastContainer />
+                <CreateModal/>
                 <div className="row justify-content-center">
                     <div className="col-md-8">
                         <div className="card">
@@ -52,11 +56,9 @@ class Table extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {
-                                    this.state.employees.map(function(x,i){
-                                        return <TableRow key={i} data={x}/> //Passing i for the index and x for the data to display in the table.
-                                    })
-                                }
+                                    {this.state.employees.map(function (x, i) {
+                                        return <TableRow key={i} data={x} />; //Passing i for the index and x for the data to display in the table.
+                                    })}
                                 </tbody>
                             </table>
                         </div>
