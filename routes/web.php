@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmployeesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Adding the employee list route. 
+
+Route::get('/get/employee/list', [EmployeesController::class, 'getEmployeeList'])->name('empolyee.list');
+
+Route::post('/get/individual/employee/details',[EmployeesController::class, 'getEmployeeDetails'])->name('empolyee.details');
